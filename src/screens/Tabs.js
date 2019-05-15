@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import TabBody from './../components/TabBody';
 
 export default class Tabs extends Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'yellow' }}>
+      <SafeAreaView style={{ flex: 1, }}>
           <TabBody />
-      </View>
+      </SafeAreaView>
     )
   }
 }

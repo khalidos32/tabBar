@@ -7,7 +7,7 @@ export default class Screen2 extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> screen1 </Text>
+        <Text> screen2 </Text>
       </View>
     )
   }

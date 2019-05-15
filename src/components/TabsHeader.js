@@ -26,22 +26,14 @@ const listTabs = [
 ];
 
 export default class TabsHeader extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedTab: 0,
-        }
-    }
 
     handelSelectTab = (selectedTab) => {
-        this.setState({
-            selectedTab,
-        });
+        this.props.handelSelectedIndex(selectedTab);
         this.props.scrollTab(selectedTab)
     }
 
     renderItems = ({item, index}) => (
-        <TopBarElement element={item} handelSelectTab={this.handelSelectTab} index={index} selectedTab={this.state.selectedTab === index} />
+        <TopBarElement element={item} handelSelectTab={this.handelSelectTab} index={index} selectedTab={this.props.selectedTab === index} />
     );
 
     keyExtractor = (item, index) => `${index}tab${item.id}`;
@@ -55,7 +47,7 @@ export default class TabsHeader extends Component {
           keyExtractor={this.keyExtractor}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          extraData={this.state.selectedTab}
+          extraData={this.props.selectedTab}
         //   contentContainerStyle={styles.wrapper}
         />
       </View>

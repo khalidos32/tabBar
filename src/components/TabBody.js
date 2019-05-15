@@ -31,6 +31,16 @@ const ListTabsBody = [
 ];
 
 export default class TabBody extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedIndex: 0,
+    }
+    this.viewabilityConfig = {
+      waitForInteraction: true,
+      viewAreaCoveragePercentThreshold: 100
+  }
+  }
   renderItems = ({item, index}) => {
       switch (item.name) {
           case 'tab1':
@@ -52,21 +62,38 @@ export default class TabBody extends Component {
     this.Tab.scrollToIndex({index, animated: true})
   }
 
+  handelViewAble = (data) => {
+    console.log('hello')
+    console.log(data);
+    this.setState({
+      selectedIndex: data.changed[0].index
+    })
+  }
+
+  handelSelectedIndex = (selectedIndex) => {
+    this.setState({
+      selectedIndex
+    })
+  }
+
   keyExtractor = (item, index) => `${index}tabBody${item.id}`
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Tabsheader scrollTab={this.scrollTab} />
+        <Tabsheader handelSelectedIndex={this.handelSelectedIndex} selectedTab={this.state.selectedIndex} scrollTab={this.scrollTab} />
         <FlatList
           data={ListTabsBody}
           renderItem={this.renderItems}
           keyExtractor={this.keyExtractor}
           horizontal={true}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
           pagingEnabled={true}
           ref={(ref) => {
               this.Tab = ref;
           }}
+          onViewableItemsChanged={this.handelViewAble}
+          viewabilityConfig={this.viewabilityConfig}
+          indicatorStyle='white'
         />
       </View>
     );
